@@ -82,5 +82,5 @@ install(){
 }
 
 updatealiases(){
-  wget -q https://raw.githubusercontent.com/aum42src/profile/main/.bash_aliases && source ~/.bash_aliases
+  wget -q -c https://raw.githubusercontent.com/aum42src/profile/main/.bash_aliases && source ~/.bash_aliases
 }
