@@ -81,4 +81,4 @@ install(){
   apt-get install -y mc wget curl screen htop;
 }
 
-updatealiases(){ wget -q https://raw.githubusercontent.com/aum42src/profile/main/.bash_aliases && source ~/.bash_aliases }
+updatealiases(){ wget -q -c https://raw.githubusercontent.com/aum42src/profile/main/.bash_aliases && source ~/.bash_aliases }
