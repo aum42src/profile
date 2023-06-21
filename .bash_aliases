@@ -7,9 +7,8 @@ alias c="clear"
 alias n="ss -nlptu"
 alias no="netstat -atunlp"
 alias zl="zfs list -o space"
-alias zls="zfs list -t snap"
 alias diskusage="df -Th"
-alias folderusage="du -ch"
+alias folderus-age="du -ch"
 alias totalfolderusage="du -sh"
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 
@@ -79,5 +78,7 @@ install(){
   echo 'include "/usr/share/nano/*.nanorc"' > ~/.config/nano/nanorc;
   echo 'SELECTED_EDITOR="/bin/nano"' > ~/.selected_editor
   apt-get clean; apt-get update; apt-get full-upgrade -y; apt-get autoremove --purge -y; apt-get autoclean;
-  apt-get install -y mc wget curl screen;
+  apt-get install -y mc wget curl screen htop;
 }
+
+updatealiases(){ wget -q https://raw.githubusercontent.com/aum42src/profile/main/.bash_aliases && source ~/.bash_aliases }
