@@ -37,7 +37,10 @@ alias drmi="docker rmi"
 alias dlog="docker logs"
 alias dprune="docker system prune"
 alias diprune="docker image prune"
+
+# Docker compose aliases #
 alias dc="docker compose"
+alias dclog="docker compose logs"
 
 dalias()    { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
 dbash()     { docker exec -it $1 /bin/bash; }
