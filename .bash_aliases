@@ -9,9 +9,10 @@ alias no="netstat -atunlp"
 alias zl="zfs list"
 alias zls="zfs list -t snap"
 alias diskusage="df -Th"
-alias folderus-age="du -ch"
+alias folderusage="du -ch"
 alias totalfolderusage="du -sh"
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias findtxt="grep -r $1 $2"
 
 mkcd() { mkdir -p "$1" && cd "$_"; }
 pscan() {
