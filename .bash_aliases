@@ -50,10 +50,10 @@ dstop()     { docker stop $1; }
 dstat()     { docker stats $1; }
 dstats()    { docker stats $(docker ps -q); }
 
-dcbuild()   { docker compose -f ${FILE} build --no-cache; }
-dcstart()   { docker compose -f ${FILE} up -d --force-recreate; }
-dcstop()    { docker compose -f ${FILE} down; }
-dcrestart() { docker compose -f ${FILE} restart; }
+dcbuild()   { docker compose -f $1 build --no-cache; }
+dcstart()   { docker compose -f $1 up -d --force-recreate; }
+dcstop()    { docker compose -f $1 down; }
+dcrestart() { docker compose -f $1 restart; }
 dcupdate()  { docker compose pull && docker compose up -d --remove-orphans && docker image prune -f; }
 
 dcmenu(){
