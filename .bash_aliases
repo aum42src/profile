@@ -76,6 +76,13 @@ else
 fi;}
 alias run="dcrun"
 
+vmkill() {
+  VM_ID=`ps aux | grep "/usr/bin/kvm -id $1" | awk -F' ' 'NR==1{print $2}'`
+  VM_NAME=`ps aux | grep "/usr/bin/kvm -id $1" | awk -F"-name " '{print $2}' | awk -F"," '{print $1}'`
+  kill -9 ${VM_ID}
+  echo vm id:${1} name:${VM_NAME} killed
+}
+
 install(){
   localectl set-locale LANG=ru_RU.UTF-8; timedatectl set-timezone Asia/Yekaterinburg;
   mkdir -p ~/.config/{mc,nano} && chmod 700 ~/.config/{mc,nano};
