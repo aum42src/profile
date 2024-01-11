@@ -1,1 +1,1 @@
-wget -q -N https://raw.githubusercontent.com/aum42src/profile/main/.bash_aliases && source ~/.bash_aliases
+wget -q -N https://raw.githubusercontent.com/cafec0ffee/profile/main/.bash_aliases && source ~/.bash_aliases
