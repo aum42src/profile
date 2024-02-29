@@ -97,11 +97,20 @@ install(){
   apt-get install -y mc wget curl screen htop;
 }
 
-installdocker(){
-  wget -qO- https://get.docker.com/ | sh;
-  systemctl --now enable docker;
-}
+installdocker(){ wget -qO- https://get.docker.com/ | sh; systemctl --now enable docker; }
 
 updatealiases(){
   wget -q -N https://raw.githubusercontent.com/cafec0ffee/profile/main/.bash_aliases && source ~/.bash_aliases;
+}
+
+ramdisk() {
+  get_mount=`mount | awk '{if ($1 == "RAMDISK") print$1}'`
+  if [ $get_mount ]; then
+    mount | grep RAMDISK
+    printf "delete ramdisk? (y|n): "; read n;
+    if [ $n == "y" ]; then umount /tmp/ramdisk; fi;
+  else
+    printf "enter ramdisk size in GB: "; read n;
+    mkdir -p /tmp/ramdisk && chmod 777 $_ && mount -t tmpfs -o size="${n}G" RAMDISK $_
+  fi;
 }
