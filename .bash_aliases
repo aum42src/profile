@@ -100,7 +100,7 @@ install(){
 installdocker(){ wget -qO- https://get.docker.com/ | sh; systemctl --now enable docker; }
 
 updatealiases(){
-  wget -q -N https://raw.githubusercontent.com/cafec0ffee/profile/main/.bash_aliases && source ~/.bash_aliases;
+  wget -q -N https://raw.githubusercontent.com/cafec0ffee/profile/main/.bash_aliases -O ~/.bash_aliases && source $_;
 }
 
 ramdisk() {
