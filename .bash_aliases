@@ -44,6 +44,7 @@ alias dc="docker compose"
 alias dclog="docker compose logs"
 
 dalias()    { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+dsh()       { docker exec -it $1 /bin/sh; }
 dbash()     { docker exec -it $1 /bin/bash; }
 dstart()    { docker start $1; }
 dstop()     { docker stop $1; }
@@ -88,7 +89,8 @@ ctip() { lxc-info -n $1 | awk '{print $2}' | grep "192.168";}
 
 # Others #
 install(){
-  localectl set-locale LANG=ru_RU.UTF-8; timedatectl set-timezone Asia/Yekaterinburg;
+  #localectl set-locale LANG=ru_RU.UTF-8;
+  timedatectl set-timezone Asia/Yekaterinburg;
   mkdir -p ~/.config/{mc,nano} && chmod 700 ~/.config/{mc,nano};
   echo -e "[New Left Panel]\nlist_format=brief\n\n[New Right Panel]\nlist_format=brief" > ~/.config/mc/panels.ini;
   echo 'include "/usr/share/nano/*.nanorc"' > ~/.config/nano/nanorc;
