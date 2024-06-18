@@ -1,0 +1,74 @@
+name: openvpn
+services:
+  service:
+    container_name: openvpn
+    build:
+      dockerfile_inline: |-
+        FROM alpine:latest
+        RUN apk add --no-cache --update bash iptables openvpn && rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
+        EXPOSE 1194/udp
+    image: cafec0ffe/openvpn
+    restart: always
+    cap_add: [NET_ADMIN]
+    ports: [1194:1194/udp]
+    entrypoint: /bin/bash
+    command: /etc/openvpn/start.sh
+    configs:
+      - source: start.sh
+        target: /etc/openvpn/start.sh
+      - source: server.conf
+        target: /etc/openvpn/server.conf
+
+configs:
+  start.sh:
+    content: |
+      #!/bin/bash
+      mkdir -p /dev/net
+      if [ ! -c /dev/net/tun ]; then
+        mknod /dev/net/tun c 10 200
+        chmod 600 /dev/net/tun
+      fi
+      iptables -t nat -A POSTROUTING -s 192.168.255.0/24 -j MASQUERADE
+      exec openvpn --config /etc/openvpn/server.conf
+  server.conf:
+    content: |
+      port 1194
+      proto udp4
+      dev tun0
+      topology subnet
+      server 192.168.255.0 255.255.255.0
+      route 192.168.254.0 255.255.255.0
+      push "block-outside-dns"
+      push "dhcp-option DNS 8.8.8.8"
+      push "dhcp-option DNS 8.8.4.4"
+      keepalive 10 60
+      tls-timeout 120
+      tls-version-min 1.3
+      tls-ciphersuites TLS_AES_256_GCM_SHA384
+      remote-cert-tls client
+      cipher AES-256-GCM
+      auth SHA512
+      dh none
+      max-clients 6
+      user nobody
+      group nogroup
+      persist-key
+      persist-tun
+      verb 3
+      mute 10
+      explicit-exit-notify 1
+      <tls-crypt-v2>
+      %SERVER_TC%
+      </tls-crypt-v2>
+      <ca>
+      %CA%
+      </ca>
+      <cert>
+      %SERVER_CERT%
+      </cert>
+      <key>
+      %SERVER_KEY%
+      </key>
+      <crl-verify>
+      %CRL%
+      </crl-verify>
