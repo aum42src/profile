@@ -84,8 +84,8 @@ vmkill() {
   kill -9 ${VM_ID}
   echo vm id:${1} name:${VM_NAME} killed
 }
-
-ctip() { lxc-info -n $1 | awk '{print $2}' | grep "192.168";}
+ctkill() { lxc-stop -n $1 --kill; }
+ctip() { lxc-info -n $1 | awk '{print $2}' | grep "192.168"; }
 
 # Others #
 install(){
